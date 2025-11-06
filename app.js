@@ -1,11 +1,15 @@
+// Import custom API functions and utilities
 import { finnhubAPI, formatNumber } from './api.js';
+// Import Supabase client for authentication management
 import { supabase } from './src/integrations/supabase/client.ts';
 
 // Theme Management
+// Initializes the user's theme (light/dark) based on saved preference
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     const html = document.documentElement;
-    
+
+       // Apply saved theme
     if (savedTheme === 'dark') {
         html.classList.add('dark');
         html.style.colorScheme = 'dark';
@@ -13,7 +17,8 @@ function initTheme() {
         html.classList.remove('dark');
         html.style.colorScheme = 'light';
     }
-    
+
+      // Handle theme toggle button
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         updateThemeIcon(savedTheme);
@@ -21,11 +26,13 @@ function initTheme() {
     }
 }
 
+// Toggles between light and dark mode
 function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.classList.contains('dark');
     const newTheme = isDark ? 'light' : 'dark';
-    
+
+    // Apply new theme and update <html> attributes
     if (newTheme === 'dark') {
         html.classList.add('dark');
         html.style.colorScheme = 'dark';
@@ -33,39 +40,46 @@ function toggleTheme() {
         html.classList.remove('dark');
         html.style.colorScheme = 'light';
     }
-    
+
+     // Save new preference to localStorage
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
 }
 
+// Updates the icon (sun/moon) on the theme toggle button
 function updateThemeIcon(theme) {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         const icon = themeToggle.querySelector('i');
         if (icon) {
+              // Show sun icon for dark mode, moon icon for light mode
             icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
         }
     }
 }
 
 // Ticker Animation with Real Data
+// Initializes the scrolling ticker showing live market changes
 async function initTicker() {
     const tickerContent = document.getElementById('tickerContent');
     if (!tickerContent) return;
 
+     // Stock symbols to display in ticker
     const symbols = ['AAPL', 'TSLA', 'GOOGL', 'AMZN', 'MSFT', 'META', 'NVDA', 'AMD'];
     
     tickerContent.innerHTML = '<div class="ticker-item">Loading...</div>';
     
     try {
+         // Fetch real-time quotes for all symbols
         const promises = symbols.map(symbol => finnhubAPI.getQuote(symbol));
         const quotes = await Promise.all(promises);
-        
+
+          // Format data for display
         const tickerData = quotes.map((quote, index) => {
             if (quote && quote.c && quote.dp !== undefined) {
                 return {
                     symbol: symbols[index],
-                    change: quote.dp,
+                    change: quote.dp, // Percentage change
                     positive: quote.dp >= 0
                 };
             }
@@ -74,7 +88,8 @@ async function initTicker() {
 
         // Duplicate data for seamless loop
         const duplicatedData = [...tickerData, ...tickerData];
-        
+
+             // Build HTML structure dynamically
         tickerContent.innerHTML = duplicatedData.map(stock => `
             <div class="ticker-item">
                 <span class="ticker-symbol">${stock.symbol}</span>
@@ -94,16 +109,20 @@ async function loadTopStocks() {
     const container = document.getElementById('topStocks');
     if (!container) return;
 
+    // Predefined symbols for featured stocks
     const symbols = ['AAPL', 'TSLA', 'AMZN'];
     
     container.innerHTML = '<div class="loading">Loading stocks...</div>';
     
     try {
+         // Fetch stock data in parallel
         const promises = symbols.map(symbol => finnhubAPI.getQuote(symbol));
         const quotes = await Promise.all(promises);
-        
+
+          // Clear loading text
         container.innerHTML = '';
-        
+
+          // Create and append stock cards
         quotes.forEach((quote, index) => {
             if (quote && quote.c) {
                 const card = createStockCard(symbols[index], quote);
@@ -116,13 +135,15 @@ async function loadTopStocks() {
     }
 }
 
+// Builds a visual stock card component dynamically
 function createStockCard(symbol, quote) {
     const card = document.createElement('div');
     card.className = 'stock-card hover-lift';
     
     const isPositive = quote.dp >= 0;
     const icon = isPositive ? 'fa-chart-line' : 'fa-chart-line';
-    
+
+      // Card HTML structure with dynamic data
     card.innerHTML = `
         <div class="stock-header">
             <div>
@@ -144,11 +165,13 @@ function createStockCard(symbol, quote) {
 }
 
 // Mobile Menu Toggle
+// Handles the mobile menu visibility and icon switching
 function initMobileMenu() {
     const menuToggle = document.getElementById('mobileMenuToggle');
     const navLinks = document.querySelector('.nav-links');
     
     if (menuToggle && navLinks) {
+          // Open/close the mobile menu
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             const icon = menuToggle.querySelector('i');
@@ -173,6 +196,7 @@ function initMobileMenu() {
 }
 
 // Auth State Management
+// Initializes authentication and handles login/logout visibility
 function initAuth() {
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
@@ -200,12 +224,14 @@ function initAuth() {
     });
 }
 
+// Updates UI elements (buttons) based on authentication state
 function updateAuthUI(session) {
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
     if (!loginBtn || !logoutBtn) return;
 
+    // Show/hide login/logout buttons based on user state
     if (session) {
         loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline-flex';
