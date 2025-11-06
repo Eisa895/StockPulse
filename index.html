@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+     <!-- Meta Information -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockPulse - Real-Time Financial Market Insights</title>
     <meta name="description" content="Stay ahead of the market with StockPulse - your comprehensive dashboard for live stock data, currency rates, market trends, and financial news">
-    <meta name="author" content="Asif">
+    <meta name="author" content="Eisa">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -13,13 +16,15 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container navbar-content">
+            <!-- Website Logo and Title -->
             <a href="index.html" class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <span class="logo-text">StockPulse</span>
             </a>
-            
+
+            <!-- Navigation Links -->
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="markets.html" class="nav-link">Markets</a>
@@ -28,18 +33,23 @@
                 <a href="news.html" class="nav-link">News</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
-            
+
+            <!-- Navbar Right Actions: Search, Theme Toggle, Auth Buttons -->
             <div class="nav-actions">
+                <!-- Search Bar -->
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="search" placeholder="Search stocks..." id="navSearch">
                 </div>
+                <!-- Mobile Menu Icon -->
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
+                <!-- Dark/Light Theme Toggle -->
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
+                <!-- Login / Logout Buttons -->
                 <div id="authButtonContainer">
                     <a href="auth.html" class="btn btn-primary" id="loginBtn">
                         <i class="fas fa-user"></i>
@@ -57,6 +67,7 @@
     <!-- Ticker -->
     <div class="ticker">
         <div class="ticker-content" id="tickerContent">
+            <!-- Example Static Market Data -->
             <div class="ticker-item">
                 <span class="ticker-symbol">AAPL</span>
                 <span class="ticker-change positive">+2.4%</span>
@@ -95,6 +106,7 @@
             <p class="hero-description">
                 Access live stock data, currency rates, market trends, and financial news in one powerful dashboard
             </p>
+            <!-- Call-to-Action Buttons -->
             <div class="hero-actions">
                 <a href="markets.html" class="btn btn-primary">
                     Explore Markets
@@ -108,6 +120,7 @@
     <!-- Market Overview -->
     <section class="section">
         <div class="container">
+            <!-- Section Header -->
             <div class="section-header">
                 <div>
                     <h2 class="section-title">Market Overview</h2>
@@ -117,7 +130,7 @@
                     View All <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
-
+            <!-- Placeholder for Top Stocks (Loaded Dynamically) -->
             <div class="grid grid-3" id="topStocks">
                 <!-- Stocks will be loaded here -->
                 <div class="stock-card-skeleton"></div>
