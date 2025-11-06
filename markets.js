@@ -1,11 +1,14 @@
 import { finnhubAPI } from './api.js';
 import Chart from 'chart.js/auto';
 
+// Default selected stock symbol
 let selectedStock = 'AAPL';
+// Chart.js instance for the selected stock
 let stockChart = null;
 
 // Initialize Markets Page
 document.addEventListener('DOMContentLoaded', () => {
+    // Only run on the markets page
     if (!window.location.pathname.includes('markets.html')) return;
     
     initStockSelector();
@@ -19,11 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // Stock Selector
 function initStockSelector() {
     const buttons = document.querySelectorAll('.stock-btn');
+    // Add click listeners to each stock button
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
+            // Remove 'active' class from all buttons
             buttons.forEach(b => b.classList.remove('active'));
+            // Mark the clicked button as active
             btn.classList.add('active');
+            // Update the selected stock symbol
             selectedStock = btn.dataset.symbol;
+            // Load new stock data
             loadStockData();
         });
     });
@@ -41,11 +49,15 @@ async function loadStockData() {
     await loadStockChart();
 }
 
+// Update the stock info section
 function updateStockInfo(quote) {
+    // Update the symbol and static name
     document.querySelector('.stock-symbol').textContent = selectedStock;
     document.querySelector('.stock-name').textContent = 'Live Quote';
+    // Update current price
     document.getElementById('currentPrice').textContent = `$${quote.c.toFixed(2)}`;
-    
+
+      // Update price change percentage
     const changeEl = document.getElementById('priceChange');
     const isPositive = quote.dp >= 0;
     changeEl.className = `stock-change ${isPositive ? 'positive' : 'negative'}`;
@@ -55,16 +67,20 @@ function updateStockInfo(quote) {
     `;
 }
 
+// Load Stock Chart
 async function loadStockChart() {
+     // Use Unix timestamps for the last 24 hours
     const to = Math.floor(Date.now() / 1000);
     const from = to - 24 * 60 * 60; // Last 24 hours
     
     const data = await finnhubAPI.getCandles(selectedStock, '5', from, to);
+       // Handle missing or empty data
     if (!data || !data.c || data.s === 'no_data') {
         console.log('No chart data available');
         return;
     }
 
+     // Prepare data for Chart.js
     const chartData = {
         labels: data.t.slice(-20).map(t => {
             const date = new Date(t * 1000);
@@ -83,11 +99,13 @@ async function loadStockChart() {
 
     const ctx = document.getElementById('stockChart');
     if (!ctx) return;
-    
+
+     // Destroy previous chart instance if exists
     if (stockChart) {
         stockChart.destroy();
     }
 
+      // Create new Chart.js line chart
     stockChart = new Chart(ctx, {
         type: 'line',
         data: chartData,
@@ -123,15 +141,19 @@ async function loadPopularStocks() {
     if (!container) return;
 
     const symbols = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'GOOGL', 'META', 'AMZN', 'AMD'];
-    
+
+      // Show loading state
     container.innerHTML = '<div class="loading">Loading stocks...</div>';
     
     try {
+         // Fetch all stock quotes in parallel
         const promises = symbols.map(symbol => finnhubAPI.getQuote(symbol));
         const quotes = await Promise.all(promises);
         
+        // Clear loading
         container.innerHTML = '';
         
+         // Add a card for each stock
         quotes.forEach((quote, index) => {
             if (quote && quote.c) {
                 const card = createStockCard(symbols[index], quote);
@@ -144,6 +166,7 @@ async function loadPopularStocks() {
     }
 }
 
+// Create a stock card element
 function createStockCard(symbol, quote) {
     const card = document.createElement('div');
     card.className = 'stock-card hover-lift';
