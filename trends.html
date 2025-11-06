@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trends - StockPulse</title>
+      <!-- Main CSS -->
     <link rel="stylesheet" href="styles.css">
+      <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container navbar-content">
+             <!-- Logo -->
             <a href="index.html" class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <span class="logo-text">StockPulse</span>
             </a>
-            
+
+             <!-- Navigation Links -->
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="markets.html" class="nav-link">Markets</a>
@@ -27,11 +32,14 @@
                 <a href="news.html" class="nav-link">News</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
-            
+
+             <!-- Navbar Actions -->
             <div class="nav-actions">
+                    <!-- Mobile Menu Toggle -->
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
+                    <!-- Theme Toggle -->
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -44,7 +52,9 @@
         <div class="ticker-content" id="tickerContent"></div>
     </div>
 
+    <!-- Page Content Container -->
     <div class="container page-container">
+          <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">
                 <i class="fas fa-fire text-warning"></i>
@@ -97,6 +107,7 @@
         <div class="mt-4">
             <h2 class="section-title">Cryptocurrency Prices</h2>
             <div class="grid grid-3" id="cryptoGrid">
+                 <!-- Bitcoin Card -->
                 <div class="crypto-card">
                     <div class="crypto-header">
                         <div class="crypto-icon">₿</div>
@@ -109,6 +120,7 @@
                     <div class="crypto-price">$43,250</div>
                     <div class="crypto-change positive">+2.4%</div>
                 </div>
+                 <!-- Ethereum Card -->
                 <div class="crypto-card">
                     <div class="crypto-header">
                         <div class="crypto-icon">Ξ</div>
@@ -121,6 +133,7 @@
                     <div class="crypto-price">$2,280</div>
                     <div class="crypto-change positive">+1.8%</div>
                 </div>
+                  <!-- Dogecoin Card -->
                 <div class="crypto-card">
                     <div class="crypto-header">
                         <div class="crypto-icon">Ð</div>
@@ -136,7 +149,7 @@
             </div>
         </div>
     </div>
-
+  <!-- JavaScript Modules -->
     <script type="module" src="api.js"></script>
     <script type="module" src="app.js"></script>
     <script type="module" src="trends.js"></script>
