@@ -1,8 +1,11 @@
 import { newsAPI, getTimeAgo } from './api.js';
 
+// Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Only run this code if we are on the news page
     if (!window.location.pathname.includes('news.html')) return;
-    
+
+      // Load all news articles
     loadAllNews();
 });
 
@@ -13,7 +16,8 @@ async function loadAllNews() {
     try {
         // Fetch all news with a broader query
         const data = await newsAPI.getEverything('finance OR stock OR market OR economy OR business', 50);
-        
+
+        // If articles exist, render them; otherwise, show "No articles"
         if (data && data.articles && data.articles.length > 0) {
             renderNewsCards(container, data.articles);
         } else {
@@ -21,16 +25,20 @@ async function loadAllNews() {
         }
     } catch (error) {
         console.error('Error loading news:', error);
+        // Display error message if fetch fails
         container.innerHTML = '<div class="loading">Unable to load news</div>';
     }
 }
 
+// Function to render news cards in the container
 function renderNewsCards(container, articles) {
+      // Handle case where no articles are available
     if (!articles || articles.length === 0) {
         container.innerHTML = '<div class="loading">No articles available</div>';
         return;
     }
-    
+
+    // Map each article to a news card HTML block
     container.innerHTML = articles.map(article => `
         <div class="news-card hover-lift">
             <div style="position: relative; height: 192px; overflow: hidden; background: var(--muted);">
@@ -58,5 +66,5 @@ function renderNewsCards(container, articles) {
                 </div>
             </div>
         </div>
-    `).join('');
+    `).join(''); // Join all news cards into a single HTML string
 }
