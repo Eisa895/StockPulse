@@ -1,5 +1,7 @@
+// Import Supabase client for authentication handling
 import { supabase } from './src/integrations/supabase/client.ts';
 
+// Track whether the user is on Sign Up or Sign In mode
 let isSignUp = false;
 
 // Initialize auth page
@@ -11,10 +13,12 @@ function initAuth() {
         }
     });
 
+     // Get form and UI elements
     const form = document.getElementById('authForm');
     const toggleModeBtn = document.getElementById('toggleMode');
     const passwordToggle = document.getElementById('passwordToggle');
 
+      // Set up event listeners
     form.addEventListener('submit', handleAuth);
     toggleModeBtn.addEventListener('click', toggleAuthMode);
     passwordToggle.addEventListener('click', togglePasswordVisibility);
@@ -22,8 +26,9 @@ function initAuth() {
 
 // Handle sign in / sign up
 async function handleAuth(e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
+    // Collect user input
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const submitBtn = document.getElementById('authSubmit');
@@ -66,6 +71,7 @@ async function handleAuth(e) {
                 email,
                 password,
                 options: {
+                    // Redirect after successful email verification
                     emailRedirectTo: `${window.location.origin}/index.html`,
                     data: {
                         email: email
@@ -122,9 +128,10 @@ async function handleAuth(e) {
     } catch (error) {
         console.error('Auth error:', error);
         
-        // Handle specific error messages
+        // Default error message
         let errorMessage = 'An error occurred. Please try again.';
-        
+
+        // Handle specific error messages
         if (error.message.includes('Invalid login credentials')) {
             errorMessage = 'Invalid email or password';
         } else if (error.message.includes('User already registered')) {
@@ -140,6 +147,7 @@ async function handleAuth(e) {
         
         showMessage(errorMessage, 'error');
     } finally {
+        // Re-enable submit button and reset text
         submitBtn.disabled = false;
         submitText.textContent = isSignUp ? 'Sign Up' : 'Sign In';
     }
@@ -147,8 +155,10 @@ async function handleAuth(e) {
 
 // Toggle between sign in and sign up
 function toggleAuthMode() {
+    // Flip the mode
     isSignUp = !isSignUp;
-    
+
+    // Update UI text elements
     const authTitle = document.getElementById('authTitle');
     const authSubtitle = document.getElementById('authSubtitle');
     const submitText = document.getElementById('submitText');
@@ -159,6 +169,7 @@ function toggleAuthMode() {
     // Hide any messages
     authMessage.style.display = 'none';
 
+     // Update content based on mode
     if (isSignUp) {
         authTitle.textContent = 'Create Account';
         authSubtitle.textContent = 'Start tracking your investments';
@@ -181,10 +192,12 @@ function togglePasswordVisibility() {
     const icon = passwordToggle.querySelector('i');
 
     if (passwordInput.type === 'password') {
+        // Show password
         passwordInput.type = 'text';
         icon.classList.remove('fa-eye');
         icon.classList.add('fa-eye-slash');
     } else {
+        // Hide password
         passwordInput.type = 'password';
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
