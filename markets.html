@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Information -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markets - StockPulse</title>
@@ -12,13 +13,15 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container navbar-content">
+            <!-- Logo -->
             <a href="index.html" class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <span class="logo-text">StockPulse</span>
             </a>
-            
+
+            <!-- Navigation Links -->
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="markets.html" class="nav-link active">Markets</a>
@@ -27,11 +30,14 @@
                 <a href="news.html" class="nav-link">News</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
-            
+
+            <!-- Navbar Actions -->
             <div class="nav-actions">
+                <!-- Mobile menu toggle -->
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
+                <!-- Theme toggle -->
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -42,9 +48,12 @@
     <!-- Ticker -->
     <div class="ticker">
         <div class="ticker-content" id="tickerContent"></div>
+        <!-- Populated dynamically via JS -->
     </div>
 
+    <!-- Page Content -->
     <div class="container page-container">
+        <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Stock Markets</h1>
             <p class="page-subtitle">Real-time market data and analysis</p>
@@ -58,6 +67,7 @@
 
         <!-- Stock Selector -->
         <div class="stock-selector" id="stockSelector">
+            <!-- Each button corresponds to a featured stock -->
             <button class="stock-btn active" data-symbol="AAPL">AAPL</button>
             <button class="stock-btn" data-symbol="TSLA">TSLA</button>
             <button class="stock-btn" data-symbol="NVDA">NVDA</button>
@@ -131,6 +141,7 @@
         </div>
     </div>
 
+    <!-- Script Imports -->
     <script type="module" src="api.js"></script>
     <script type="module" src="app.js"></script>
     <script type="module" src="markets.js"></script>
