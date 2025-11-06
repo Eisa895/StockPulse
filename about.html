@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Page Setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - StockPulse</title>
+
+     <!-- External CSS Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+
+     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -17,7 +22,8 @@
                 </div>
                 <span class="logo-text">StockPulse</span>
             </a>
-            
+
+            <!-- Navigation Links -->
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="markets.html" class="nav-link">Markets</a>
@@ -26,7 +32,8 @@
                 <a href="news.html" class="nav-link">News</a>
                 <a href="about.html" class="nav-link active">About</a>
             </div>
-            
+
+             <!-- Navbar Actions (Mobile Menu & Theme Toggle) -->
             <div class="nav-actions">
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <i class="fas fa-bars"></i>
@@ -105,6 +112,7 @@
             </div>
             <div class="card-body">
                 <div class="tech-grid">
+                      <!-- Each item represents a core technology used -->
                     <div class="tech-item">
                         <span class="tech-icon">📄</span>
                         <span>HTML5</span>
@@ -143,6 +151,7 @@
             </div>
             <div class="card-body">
                 <div class="api-list">
+                      <!-- Each API item shows which source powers which data -->
                     <div class="api-item">
                         <span class="badge">Stock Data</span>
                         <p>Finnhub.io - Real-time stock quotes and historical data</p>
@@ -174,7 +183,8 @@
             </div>
         </div>
     </div>
-
+<!-- JavaScript files -->
+       <!-- api.js handles fetching live data from APIs -->
     <script type="module" src="api.js"></script>
     <script type="module" src="app.js"></script>
 </body>
