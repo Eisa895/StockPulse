@@ -1,26 +1,34 @@
+// Import Chart.js (auto version automatically registers all chart types)
 import Chart from 'chart.js/auto';
 
+// Global variable to hold the Chart instance
 let currencyChart = null;
 
+// Run this code after the DOM (HTML) has fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+     // Ensure this script only runs on currencies.html page
     if (!window.location.pathname.includes('currencies.html')) return;
-    
-    initConverter();
-    initChart();
-    loadCurrencyGrid();
+
+     // Initialize all main functions
+  initConverter();     // Setup the currency converter
+    initChart();         // Render the currency exchange rate chart
+    loadCurrencyGrid();  // Load the currency list with rates
 });
 
 // Currency Converter
 function initConverter() {
+    // Select converter input elements
     const amountInput = document.getElementById('amount');
     const fromSelect = document.getElementById('fromCurrency');
     const toSelect = document.getElementById('toCurrency');
-    
+
+     // Function to perform conversion and update display
     function updateConversion() {
-        const amount = parseFloat(amountInput.value) || 0;
-        const from = fromSelect.value;
-        const to = toSelect.value;
-        
+         const amount = parseFloat(amountInput.value) || 0;  // Get entered amount (default 0 if invalid)
+        const from = fromSelect.value;                      // Base currency
+        const to = toSelect.value;                          // Target currency
+
+        // Fixed sample exchange rates (in real use, these can be fetched from an API)
         const rates = {
             USD: 1.0000,
             EUR: 0.9245,
@@ -29,26 +37,31 @@ function initConverter() {
             JPY: 149.32,
             CAD: 1.3542
         };
-        
+
+         // Convert between currencies based on base (USD)
         const fromRate = rates[from];
         const toRate = rates[to];
         const result = ((amount / fromRate) * toRate).toFixed(2);
-        
+
+        // Update result text dynamically
         document.getElementById('conversionFrom').textContent = `${amount} ${from}`;
         document.getElementById('conversionTo').textContent = `${result} ${to}`;
     }
-    
+
+    // Update conversion whenever inputs change
     amountInput.addEventListener('input', updateConversion);
     fromSelect.addEventListener('change', updateConversion);
     toSelect.addEventListener('change', updateConversion);
-    
+
+     // Run once on page load
     updateConversion();
 }
 
 // Currency Chart
 function initChart() {
     const ctx = document.getElementById('currencyChart').getContext('2d');
-    
+
+    // Example data for USD → AED exchange rate across 7 days
     const data = {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [{
@@ -62,7 +75,8 @@ function initChart() {
             pointBackgroundColor: '#22c55e'
         }]
     };
-    
+
+    // Create line chart
     currencyChart = new Chart(ctx, {
         type: 'line',
         data: data,
@@ -94,7 +108,8 @@ function initChart() {
 function loadCurrencyGrid() {
     const container = document.getElementById('currencyGrid');
     if (!container) return;
-    
+
+    // Static list of currencies with code, name, emoji flag, and exchange rate
     const currencies = [
         { code: 'USD', name: 'US Dollar', flag: '🇺🇸', rate: 1.0000 },
         { code: 'EUR', name: 'Euro', flag: '🇪🇺', rate: 0.9245 },
@@ -105,11 +120,14 @@ function loadCurrencyGrid() {
         { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', rate: 1.5287 },
         { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', rate: 0.8845 }
     ];
-    
+
+     // Build and inject each currency card into the grid
     container.innerHTML = currencies.map(currency => {
+        // Randomly generate fake daily % change between -1.00 and +1.00
         const change = (Math.random() * 2 - 1).toFixed(2);
         const isPositive = parseFloat(change) >= 0;
-        
+
+        // Return currency card HTML
         return `
             <div class="currency-card hover-lift">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
@@ -128,5 +146,5 @@ function loadCurrencyGrid() {
                 </div>
             </div>
         `;
-    }).join('');
+    }).join(''); // Join all cards into a single string for HTML injection
 }
