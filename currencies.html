@@ -2,23 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+     <!-- Ensures proper rendering and touch zooming on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Page Title -->
     <title>Currencies - StockPulse</title>
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome Icons (for UI icons like charts, arrows, etc.) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js Library for drawing currency rate charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container navbar-content">
+             <!-- Website Logo -->
             <a href="index.html" class="logo">
                 <div class="logo-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <span class="logo-text">StockPulse</span>
             </a>
-            
+
+            <!-- Navigation Links -->
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="markets.html" class="nav-link">Markets</a>
@@ -27,11 +34,14 @@
                 <a href="news.html" class="nav-link">News</a>
                 <a href="about.html" class="nav-link">About</a>
             </div>
-            
+
+            <!-- Navbar Right Side Actions -->
             <div class="nav-actions">
+                <!-- Mobile Menu Toggle Button -->
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <i class="fas fa-bars"></i>
                 </button>
+                <!-- Light/Dark Theme Toggle -->
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -41,10 +51,13 @@
 
     <!-- Ticker -->
     <div class="ticker">
+        <!-- Dynamic ticker text will scroll here -->
         <div class="ticker-content" id="tickerContent"></div>
     </div>
 
+    <!-- Main page content -->
     <div class="container page-container">
+        <!-- Page Header -->
         <div class="page-header">
             <h1 class="page-title">Currency Exchange</h1>
             <p class="page-subtitle">Live forex rates and currency converter</p>
@@ -56,11 +69,13 @@
                 <h3 class="card-title">Currency Converter</h3>
             </div>
             <div class="card-body">
+                <!-- Input for amount to convert -->
                 <div class="converter-grid">
                     <div class="form-group">
                         <label>Amount</label>
                         <input type="number" id="amount" value="1000" class="form-input">
                     </div>
+                    <!-- Dropdown for base currency -->
                     <div class="form-group">
                         <label>From</label>
                         <select id="fromCurrency" class="form-select">
@@ -72,6 +87,7 @@
                             <option value="CAD">🇨🇦 CAD</option>
                         </select>
                     </div>
+                    <!-- Dropdown for target currency -->
                     <div class="form-group">
                         <label>To</label>
                         <select id="toCurrency" class="form-select">
@@ -84,6 +100,7 @@
                         </select>
                     </div>
                 </div>
+                <!-- Display conversion result dynamically -->
                 <div class="conversion-result">
                     <span id="conversionFrom">1000 USD</span>
                     <i class="fas fa-arrow-right"></i>
@@ -98,6 +115,7 @@
                 <h3 class="card-title">USD → AED Exchange Rate (Last 7 Days)</h3>
             </div>
             <div class="card-body">
+                <!-- Chart.js will render the line chart here -->
                 <canvas id="currencyChart"></canvas>
             </div>
         </div>
@@ -111,8 +129,12 @@
         </div>
     </div>
 
+    <!-- JAvaScript Modules -->
+    <!-- Handles API connections -->
     <script type="module" src="api.js"></script>
+    <!-- General site functionality (theme, menu, etc.) -->
     <script type="module" src="app.js"></script>
+    <!-- Specific logic for currency data and chart rendering -->
     <script type="module" src="currencies.js"></script>
 </body>
 </html>
